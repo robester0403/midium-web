@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const ArticleCard = ({ title, author, content }) => {
   const formattedContent =
-    content.length > 25 ? content.substring(0, 24) + "..." : content + "...";
+    content.length > 100 ? content.substring(0, 97) + "..." : content + "...";
 
   return (
     <CardContainer>
