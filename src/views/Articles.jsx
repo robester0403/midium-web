@@ -4,14 +4,14 @@ import ArticleCard from "../components/ArticleCard";
 // import { useArticleStore } from "../context/ZustandStore";
 
 // need to possible adjust the defaults for the query and export it to the utils folder
+const fetchArticles = async () => {
+  const res = await fetch("http://127.0.0.1:5000/api/blogpost", {
+    method: "GET",
+  });
+  return res.json();
+};
 
 const Articles = () => {
-  const fetchArticles = async () => {
-    const res = await fetch("http://127.0.0.1:5000/api/blogpost", {
-      method: "GET",
-    });
-    return res.json();
-  };
   const allArticlesQuery = useQuery(["allArticles"], fetchArticles);
   console.log(allArticlesQuery?.data?.posts);
   // const hydrateArticles = useArticleStore((state) => state.hydrateArticles);
