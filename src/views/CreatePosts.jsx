@@ -1,14 +1,8 @@
 import { Button, Grid, TextField } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useFormik } from "formik";
 import * as yup from "yup";
-
-const defaultValues = {
-  author: "Robert So",
-  title: "",
-  content: "",
-};
 
 const validationsSchema = yup.object({
   title: yup
@@ -23,6 +17,14 @@ const validationsSchema = yup.object({
 });
 
 const CreatePosts = () => {
+  const [content, setContent] = useState(null); // this is for AI generator
+
+  const defaultValues = {
+    author: "Robert So",
+    title: "",
+    content: content || "",
+  };
+
   const formik = useFormik({
     initialValues: defaultValues,
     validationSchema: validationsSchema,
@@ -33,6 +35,11 @@ const CreatePosts = () => {
       alert("Wrong password");
     },
   });
+
+  useEffect(() => {
+    formik.setFieldValue("content", content); // for AI to connect to formik
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content]);
 
   // const [formValues, setFormValues] = useState({
   //   ...defaultValues,
