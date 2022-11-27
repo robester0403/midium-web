@@ -61,7 +61,10 @@ const CreatePosts = () => {
     initialValues: defaultAIValues,
     validationSchema: validationsAISchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      if (formik.values.password === "123456") {
+        alert(JSON.stringify(values, null, 2));
+      }
+      alert("Wrong password");
     },
   });
 
@@ -140,19 +143,26 @@ const CreatePosts = () => {
           </Grid>
         </form>
       </FormContainer>
-      <FormContainer>
-        <TextField
-          id="language-input"
-          name="language"
-          label="Programming Language"
-          value={aiFormik.values.language}
-          onChange={aiFormik.handleChange}
-          error={aiFormik.touched.language && Boolean(aiFormik.errors.language)}
-          helperText={aiFormik.touched.language && aiFormik.errors.language}
-          fullWidth
-          sx={{ marginBottom: "32px" }}
-        />
-      </FormContainer>
+      <form onSubmit={aiFormik.handleSubmit}>
+        <FormContainer>
+          <TextField
+            id="language-input"
+            name="language"
+            label="Programming Language"
+            value={aiFormik.values.language}
+            onChange={aiFormik.handleChange}
+            error={
+              aiFormik.touched.language && Boolean(aiFormik.errors.language)
+            }
+            helperText={aiFormik.touched.language && aiFormik.errors.language}
+            fullWidth
+            sx={{ marginBottom: "32px" }}
+          />
+          <Button variant="contained" color="primary" type="submit">
+            Activate Post Muse
+          </Button>
+        </FormContainer>
+      </form>
     </>
   );
 };
