@@ -4,6 +4,9 @@ import styled from "styled-components";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
+// for future versions. Refactor textfield, and label routes. Form components to take in normal or ai formik ...etc
+//
+
 const validationsSchema = yup.object({
   title: yup
     .string("Enter your title (required)")
@@ -61,7 +64,10 @@ const CreatePosts = () => {
     initialValues: defaultAIValues,
     validationSchema: validationsAISchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      if (formik.values.password === "123456") {
+        alert(JSON.stringify(values, null, 2));
+      }
+      alert("Wrong password");
     },
   });
 
@@ -70,22 +76,6 @@ const CreatePosts = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content]);
 
-  // const [formValues, setFormValues] = useState({
-  //   ...defaultValues,
-  //   author: "Robert So",
-  // });
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormValues({
-  //     ...formValues,
-  //     [name]: value,
-  //   });
-  // };
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   console.log(formValues);
-  // };
   return (
     <>
       <FormContainer>
@@ -140,19 +130,50 @@ const CreatePosts = () => {
           </Grid>
         </form>
       </FormContainer>
-      <FormContainer>
-        <TextField
-          id="language-input"
-          name="language"
-          label="Programming Language"
-          value={aiFormik.values.language}
-          onChange={aiFormik.handleChange}
-          error={aiFormik.touched.language && Boolean(aiFormik.errors.language)}
-          helperText={aiFormik.touched.language && aiFormik.errors.language}
-          fullWidth
-          sx={{ marginBottom: "32px" }}
-        />
-      </FormContainer>
+      <form onSubmit={aiFormik.handleSubmit}>
+        <FormContainer>
+          <TextField
+            id="language-input"
+            name="language"
+            label="Programming Language"
+            value={aiFormik.values.language}
+            onChange={aiFormik.handleChange}
+            error={
+              aiFormik.touched.language && Boolean(aiFormik.errors.language)
+            }
+            helperText={aiFormik.touched.language && aiFormik.errors.language}
+            fullWidth
+            sx={{ marginBottom: "32px" }}
+          />
+          <TextField
+            id="framework-input"
+            name="framework"
+            label="Framework"
+            value={aiFormik.values.framework}
+            onChange={aiFormik.handleChange}
+            error={
+              aiFormik.touched.framework && Boolean(aiFormik.errors.framework)
+            }
+            helperText={aiFormik.touched.framework && aiFormik.errors.framework}
+            fullWidth
+            sx={{ marginBottom: "32px" }}
+          />
+          <TextField
+            id="prompt-input"
+            name="prompt"
+            label="Enter your custom prompt"
+            value={aiFormik.values.prompt}
+            onChange={aiFormik.handleChange}
+            error={aiFormik.touched.prompt && Boolean(aiFormik.errors.prompt)}
+            helperText={aiFormik.touched.prompt && aiFormik.errors.prompt}
+            fullWidth
+            sx={{ marginBottom: "32px" }}
+          />
+          <Button variant="contained" color="primary" type="submit">
+            Activate Post Muse
+          </Button>
+        </FormContainer>
+      </form>
     </>
   );
 };
