@@ -3,6 +3,37 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+
+// for future versions. Refactor textfield, and label routes. Form components to take in normal or ai formik ...etc
+//
+
+// const createPosts = async () => {
+//   await axios.post("http://127.0.0.1:5000/api/blogpost");
+//   console.log("post created");
+// };
+// const createPosts = async (values) => {
+//   await axios.post("http://127.0.0.1:5000/api/blogpost");
+//   return
+// };
+
+const createPost = async (data) => {
+  const { data: response } = await axios.post(
+    "http://127.0.0.1:5000/api/blogpost",
+    data
+  );
+  return response.data;
+};
+
+const generateAiText = async (data) => {
+  const { data: response } = await axios.post(
+    "http://127.0.0.1:5000/api/aitextgenerate",
+    data
+  );
+  console.log(response);
+  return response.data;
+};
 
 const validationsSchema = yup.object({
   title: yup
@@ -34,6 +65,19 @@ const validationsAISchema = yup.object({
 const CreatePosts = () => {
   const [content, setContent] = useState(null); // this is for AI generator
 
+  const createPostMutation = useMutation(createPost, {
+    onSuccess: (data) => {},
+    onError: () => {
+      alert("there was an error");
+    },
+  });
+
+  const generateAiTextMutation = useMutation(generateAiText, {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+
   const defaultValues = {
     author: "Robert So",
     title: "",
@@ -51,9 +95,10 @@ const CreatePosts = () => {
     validationSchema: validationsSchema,
     onSubmit: (values) => {
       if (formik.values.password === "123456") {
-        alert(JSON.stringify(values, null, 2));
+        createPostMutation.mutate({ ...values });
+      } else {
+        alert("Wrong password");
       }
-      alert("Wrong password");
     },
   });
 
@@ -62,9 +107,10 @@ const CreatePosts = () => {
     validationSchema: validationsAISchema,
     onSubmit: (values) => {
       if (formik.values.password === "123456") {
-        alert(JSON.stringify(values, null, 2));
+        generateAiTextMutation.mutate({ ...values });
+      } else {
+        alert("Wrong password");
       }
-      alert("Wrong password");
     },
   });
 
@@ -73,22 +119,6 @@ const CreatePosts = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content]);
 
-  // const [formValues, setFormValues] = useState({
-  //   ...defaultValues,
-  //   author: "Robert So",
-  // });
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormValues({
-  //     ...formValues,
-  //     [name]: value,
-  //   });
-  // };
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   console.log(formValues);
-  // };
   return (
     <>
       <FormContainer>
@@ -155,6 +185,30 @@ const CreatePosts = () => {
               aiFormik.touched.language && Boolean(aiFormik.errors.language)
             }
             helperText={aiFormik.touched.language && aiFormik.errors.language}
+            fullWidth
+            sx={{ marginBottom: "32px" }}
+          />
+          <TextField
+            id="framework-input"
+            name="framework"
+            label="Framework"
+            value={aiFormik.values.framework}
+            onChange={aiFormik.handleChange}
+            error={
+              aiFormik.touched.framework && Boolean(aiFormik.errors.framework)
+            }
+            helperText={aiFormik.touched.framework && aiFormik.errors.framework}
+            fullWidth
+            sx={{ marginBottom: "32px" }}
+          />
+          <TextField
+            id="prompt-input"
+            name="prompt"
+            label="Enter your custom prompt"
+            value={aiFormik.values.prompt}
+            onChange={aiFormik.handleChange}
+            error={aiFormik.touched.prompt && Boolean(aiFormik.errors.prompt)}
+            helperText={aiFormik.touched.prompt && aiFormik.errors.prompt}
             fullWidth
             sx={{ marginBottom: "32px" }}
           />
