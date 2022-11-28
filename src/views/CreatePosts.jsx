@@ -9,30 +9,29 @@ import { useMutation } from "@tanstack/react-query";
 // for future versions. Refactor textfield, and label routes. Form components to take in normal or ai formik ...etc
 //
 
-// const createPosts = async () => {
-//   await axios.post("http://127.0.0.1:5000/api/blogpost");
-//   console.log("post created");
-// };
-// const createPosts = async (values) => {
-//   await axios.post("http://127.0.0.1:5000/api/blogpost");
-//   return
-// };
-
 const createPost = async (data) => {
-  const { data: response } = await axios.post(
-    "http://127.0.0.1:5000/api/blogpost",
-    data
-  );
-  return response.data;
+  const response = await axios.post("http://127.0.0.1:5000/api/blogpost", data);
+  return response;
 };
 
 const generateAiText = async (data) => {
-  const { data: response } = await axios.post(
+  // console.log(JSON.stringify(data));
+  // const res = await fetch("http://127.0.0.1:5000/api/aitextgenerate", {
+  //   method: "POST",
+  //   mode: "no-cors",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify(data),
+  // });
+  // console.log(res);
+  // return res.json();
+  const res = await axios.post(
     "http://127.0.0.1:5000/api/aitextgenerate",
     data
   );
-  console.log(response);
-  return response.data;
+  console.log(res.data.choices[0].text);
+  return res.data.choices[0].text;
 };
 
 const validationsSchema = yup.object({
@@ -65,18 +64,20 @@ const validationsAISchema = yup.object({
 const CreatePosts = () => {
   const [content, setContent] = useState(null); // this is for AI generator
 
-  const createPostMutation = useMutation(createPost, {
-    onSuccess: (data) => {},
-    onError: () => {
-      alert("there was an error");
-    },
-  });
+  // const createPostMutation = useMutation(createPost, {
+  //   onSuccess: (data) => {
+  //     // this works
+  //   },
+  //   onError: () => {
+  //     alert("there was an error");
+  //   },
+  // });
 
-  const generateAiTextMutation = useMutation(generateAiText, {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-  });
+  // const generateAiTextMutation = useMutation(generateAiText, {
+  //   onSuccess: (data) => {
+  //     console.log(data);
+  //   },
+  // });
 
   const defaultValues = {
     author: "Robert So",
@@ -93,9 +94,10 @@ const CreatePosts = () => {
   const formik = useFormik({
     initialValues: defaultValues,
     validationSchema: validationsSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (formik.values.password === "123456") {
-        createPostMutation.mutate({ ...values });
+        // createPostMutation.mutate({ ...values });
+        await createPost({ ...values }).then((res) => {});
       } else {
         alert("Wrong password");
       }
@@ -105,9 +107,18 @@ const CreatePosts = () => {
   const aiFormik = useFormik({
     initialValues: defaultAIValues,
     validationSchema: validationsAISchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      // if (formik.values.password === "123456") {
+      //   generateAiTextMutation.mutate({ ...values });
+      // } else {
+      //   alert("Wrong password");
+      // }
       if (formik.values.password === "123456") {
-        generateAiTextMutation.mutate({ ...values });
+        console.log({ ...values });
+        await generateAiText({ ...values }).then((res) => {
+          setContent(res);
+        });
+        console.log(content);
       } else {
         alert("Wrong password");
       }
