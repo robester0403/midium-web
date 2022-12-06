@@ -27,7 +27,7 @@ const NavBar = () => {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%", boxSizing: "border-box" }}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -38,9 +38,17 @@ const NavBar = () => {
         we need to fix this linkTab to something better
         <Tab
           icon={
-            <IconButton sx={{ padding: "0px", margin: "0px", minWidth: "0px" }}>
-              <AddIcon />
-            </IconButton>
+            <AddIcon
+              sx={{
+                padding: "0px",
+                margin: "0px",
+                minWidth: "0px",
+                "&:hover": {
+                  backgroundColor: "lightgrey",
+                  borderRadius: "50%",
+                },
+              }}
+            />
           }
           sx={{ padding: "0px", margin: "0px", minWidth: "0px" }}
           aria-label="add"

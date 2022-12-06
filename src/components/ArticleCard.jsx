@@ -1,13 +1,19 @@
 import { Typography } from "@mui/material";
 import React from "react";
-import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { CardContainer, TextHighlight } from "../styles/styled";
 
-const ArticleCard = ({ title, author, content }) => {
+const ArticleCard = ({ id, title, author, content }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/${id}`);
+  };
   const formattedContent =
     content.length > 100 ? content.substring(0, 97) + "..." : content + "...";
 
   return (
-    <CardContainer>
+    <CardContainer onClick={handleClick} cursor="pointer">
       <div>
         <Typography variant="h5">
           {title} <TextHighlight>by {author}</TextHighlight>
@@ -21,14 +27,3 @@ const ArticleCard = ({ title, author, content }) => {
 };
 
 export default ArticleCard;
-
-const CardContainer = styled.div`
-  margin-top: 16px;
-  border-bottom: 1px solid lightgray;
-  height: 112px;
-`;
-
-const TextHighlight = styled.span`
-  color: grey;
-  font-weight: 400;
-`;
