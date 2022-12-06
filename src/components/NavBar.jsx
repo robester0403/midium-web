@@ -4,7 +4,6 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
-import IconButton from "@mui/material/IconButton";
 
 const NavBar = () => {
   const [value, setValue] = useState(1);
