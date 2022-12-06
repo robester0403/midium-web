@@ -5,7 +5,6 @@ import * as yup from "yup";
 import axios from "axios";
 // import { useMutation } from "@tanstack/react-query";
 import { FormContainer, MarginedTextField } from "../styles/styled";
-import { ExpandMore } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 // for future versions. Refactor textfield, and label routes. Form components to take in normal or ai formik ...etc
