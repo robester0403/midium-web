@@ -1,10 +1,12 @@
-import { Button, Grid } from "@mui/material";
+import { Button, Collapse, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 // import { useMutation } from "@tanstack/react-query";
 import { FormContainer, MarginedTextField } from "../styles/styled";
+import { ExpandMore } from "@mui/icons-material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 // for future versions. Refactor textfield, and label routes. Form components to take in normal or ai formik ...etc
 //
@@ -63,6 +65,7 @@ const validationsAISchema = yup.object({
 
 const CreatePosts = () => {
   const [content, setContent] = useState(" "); // this is for AI generator
+  const [expanded, setExpanded] = useState(true);
 
   // const createPostMutation = useMutation(createPost, {
   //   onSuccess: (data) => {
@@ -78,6 +81,11 @@ const CreatePosts = () => {
   //     console.log(data);
   //   },
   // });
+  console.log(expanded);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
 
   const defaultValues = {
     author: "Robert So",
@@ -131,6 +139,77 @@ const CreatePosts = () => {
 
   return (
     <>
+      <Grid
+        container
+        alignItems="center"
+        onClick={handleExpandClick}
+        sx={{ mt: 3, cursor: "pointer" }}
+      >
+        <ExpandMoreIcon aria-expanded={expanded} aria-label="show more" />
+        <Typography variant="h5" component="span">
+          Click To Use AI
+        </Typography>
+      </Grid>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <FormContainer>
+          <form onSubmit={aiFormik.handleSubmit}>
+            <Grid
+              container
+              alignItems="center"
+              justify="center"
+              direction="column"
+            >
+              <MarginedTextField
+                id="language-input"
+                name="language"
+                label="Programming Language"
+                value={aiFormik.values.language}
+                onChange={aiFormik.handleChange}
+                error={
+                  aiFormik.touched.language && Boolean(aiFormik.errors.language)
+                }
+                helperText={
+                  aiFormik.touched.language && aiFormik.errors.language
+                }
+                fullWidth
+                sx={{ marginBottom: "32px" }}
+              />
+              <MarginedTextField
+                id="framework-input"
+                name="framework"
+                label="Framework"
+                value={aiFormik.values.framework}
+                onChange={aiFormik.handleChange}
+                error={
+                  aiFormik.touched.framework &&
+                  Boolean(aiFormik.errors.framework)
+                }
+                helperText={
+                  aiFormik.touched.framework && aiFormik.errors.framework
+                }
+                fullWidth
+                sx={{ marginBottom: "32px" }}
+              />
+              <MarginedTextField
+                id="prompt-input"
+                name="prompt"
+                label="Enter your custom prompt"
+                value={aiFormik.values.prompt}
+                onChange={aiFormik.handleChange}
+                error={
+                  aiFormik.touched.prompt && Boolean(aiFormik.errors.prompt)
+                }
+                helperText={aiFormik.touched.prompt && aiFormik.errors.prompt}
+                fullWidth
+                sx={{ marginBottom: "32px" }}
+              />
+              <Button variant="contained" color="primary" type="submit">
+                Activate Post Muse
+              </Button>
+            </Grid>
+          </form>
+        </FormContainer>
+      </Collapse>
       <FormContainer>
         <form onSubmit={formik.handleSubmit}>
           <Grid
@@ -179,60 +258,6 @@ const CreatePosts = () => {
 
             <Button variant="contained" color="primary" type="submit">
               Submit
-            </Button>
-          </Grid>
-        </form>
-      </FormContainer>
-
-      <FormContainer>
-        <form onSubmit={aiFormik.handleSubmit}>
-          <Grid
-            container
-            alignItems="center"
-            justify="center"
-            direction="column"
-          >
-            <MarginedTextField
-              id="language-input"
-              name="language"
-              label="Programming Language"
-              value={aiFormik.values.language}
-              onChange={aiFormik.handleChange}
-              error={
-                aiFormik.touched.language && Boolean(aiFormik.errors.language)
-              }
-              helperText={aiFormik.touched.language && aiFormik.errors.language}
-              fullWidth
-              sx={{ marginBottom: "32px" }}
-            />
-            <MarginedTextField
-              id="framework-input"
-              name="framework"
-              label="Framework"
-              value={aiFormik.values.framework}
-              onChange={aiFormik.handleChange}
-              error={
-                aiFormik.touched.framework && Boolean(aiFormik.errors.framework)
-              }
-              helperText={
-                aiFormik.touched.framework && aiFormik.errors.framework
-              }
-              fullWidth
-              sx={{ marginBottom: "32px" }}
-            />
-            <MarginedTextField
-              id="prompt-input"
-              name="prompt"
-              label="Enter your custom prompt"
-              value={aiFormik.values.prompt}
-              onChange={aiFormik.handleChange}
-              error={aiFormik.touched.prompt && Boolean(aiFormik.errors.prompt)}
-              helperText={aiFormik.touched.prompt && aiFormik.errors.prompt}
-              fullWidth
-              sx={{ marginBottom: "32px" }}
-            />
-            <Button variant="contained" color="primary" type="submit">
-              Activate Post Muse
             </Button>
           </Grid>
         </form>
