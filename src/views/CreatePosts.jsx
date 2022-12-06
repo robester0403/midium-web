@@ -1,10 +1,10 @@
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+// import { useMutation } from "@tanstack/react-query";
+import { FormContainer, MarginedTextField } from "../styles/styled";
 
 // for future versions. Refactor textfield, and label routes. Form components to take in normal or ai formik ...etc
 //
@@ -58,7 +58,7 @@ const validationsAISchema = yup.object({
   prompt: yup
     .string("Enter any additional prompts")
     .min(3, "Prompt must be at least 3 characters")
-    .max(100, "Prompt cannot exceed 100 characters"),
+    .max(200, "Prompt cannot exceed 200 characters"),
 });
 
 const CreatePosts = () => {
@@ -140,7 +140,7 @@ const CreatePosts = () => {
             justify="center"
             direction="column"
           >
-            <TextField
+            <MarginedTextField
               id="title-input"
               name="title"
               label="Title"
@@ -152,7 +152,7 @@ const CreatePosts = () => {
               sx={{ marginBottom: "32px" }}
             />
 
-            <TextField
+            <MarginedTextField
               id="content-input"
               name="content"
               label="Content"
@@ -166,7 +166,7 @@ const CreatePosts = () => {
               sx={{ marginBottom: "32px", height: 400 }}
             />
 
-            <TextField
+            <MarginedTextField
               id="password-input"
               name="password"
               label="Password"
@@ -184,57 +184,62 @@ const CreatePosts = () => {
           </Grid>
         </form>
       </FormContainer>
-      <form onSubmit={aiFormik.handleSubmit}>
-        <FormContainer>
-          <TextField
-            id="language-input"
-            name="language"
-            label="Programming Language"
-            value={aiFormik.values.language}
-            onChange={aiFormik.handleChange}
-            error={
-              aiFormik.touched.language && Boolean(aiFormik.errors.language)
-            }
-            helperText={aiFormik.touched.language && aiFormik.errors.language}
-            fullWidth
-            sx={{ marginBottom: "32px" }}
-          />
-          <TextField
-            id="framework-input"
-            name="framework"
-            label="Framework"
-            value={aiFormik.values.framework}
-            onChange={aiFormik.handleChange}
-            error={
-              aiFormik.touched.framework && Boolean(aiFormik.errors.framework)
-            }
-            helperText={aiFormik.touched.framework && aiFormik.errors.framework}
-            fullWidth
-            sx={{ marginBottom: "32px" }}
-          />
-          <TextField
-            id="prompt-input"
-            name="prompt"
-            label="Enter your custom prompt"
-            value={aiFormik.values.prompt}
-            onChange={aiFormik.handleChange}
-            error={aiFormik.touched.prompt && Boolean(aiFormik.errors.prompt)}
-            helperText={aiFormik.touched.prompt && aiFormik.errors.prompt}
-            fullWidth
-            sx={{ marginBottom: "32px" }}
-          />
-          <Button variant="contained" color="primary" type="submit">
-            Activate Post Muse
-          </Button>
-        </FormContainer>
-      </form>
+
+      <FormContainer>
+        <form onSubmit={aiFormik.handleSubmit}>
+          <Grid
+            container
+            alignItems="center"
+            justify="center"
+            direction="column"
+          >
+            <MarginedTextField
+              id="language-input"
+              name="language"
+              label="Programming Language"
+              value={aiFormik.values.language}
+              onChange={aiFormik.handleChange}
+              error={
+                aiFormik.touched.language && Boolean(aiFormik.errors.language)
+              }
+              helperText={aiFormik.touched.language && aiFormik.errors.language}
+              fullWidth
+              sx={{ marginBottom: "32px" }}
+            />
+            <MarginedTextField
+              id="framework-input"
+              name="framework"
+              label="Framework"
+              value={aiFormik.values.framework}
+              onChange={aiFormik.handleChange}
+              error={
+                aiFormik.touched.framework && Boolean(aiFormik.errors.framework)
+              }
+              helperText={
+                aiFormik.touched.framework && aiFormik.errors.framework
+              }
+              fullWidth
+              sx={{ marginBottom: "32px" }}
+            />
+            <MarginedTextField
+              id="prompt-input"
+              name="prompt"
+              label="Enter your custom prompt"
+              value={aiFormik.values.prompt}
+              onChange={aiFormik.handleChange}
+              error={aiFormik.touched.prompt && Boolean(aiFormik.errors.prompt)}
+              helperText={aiFormik.touched.prompt && aiFormik.errors.prompt}
+              fullWidth
+              sx={{ marginBottom: "32px" }}
+            />
+            <Button variant="contained" color="primary" type="submit">
+              Activate Post Muse
+            </Button>
+          </Grid>
+        </form>
+      </FormContainer>
     </>
   );
 };
 
 export default CreatePosts;
-
-const FormContainer = styled.div`
-  margin-top: 32px;
-  height: 100%;
-`;
