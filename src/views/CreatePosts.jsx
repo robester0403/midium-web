@@ -62,7 +62,7 @@ const validationsAISchema = yup.object({
 });
 
 const CreatePosts = () => {
-  const [content, setContent] = useState(null); // this is for AI generator
+  const [content, setContent] = useState(" "); // this is for AI generator
 
   // const createPostMutation = useMutation(createPost, {
   //   onSuccess: (data) => {
@@ -118,7 +118,6 @@ const CreatePosts = () => {
         await generateAiText({ ...values }).then((res) => {
           setContent(res);
         });
-        console.log(content);
       } else {
         alert("Wrong password");
       }
