@@ -57,7 +57,9 @@ const Article = () => {
             <Typography sx={{ mb: 2 }} color="text.secondary">
               By {author}
             </Typography>
-            <Typography variant="body2">{content}</Typography>
+            <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }}>
+              {content}
+            </Typography>
           </CardContent>
           <CardActions>
             <Button size="small" onClick={handleCopy}>

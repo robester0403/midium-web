@@ -7,9 +7,6 @@ import axios from "axios";
 import { FormContainer, MarginedTextField } from "../styles/styled";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-// for future versions. Refactor textfield, and label routes. Form components to take in normal or ai formik ...etc
-//
-
 const createPost = async (data) => {
   const response = await axios.post("http://127.0.0.1:5000/api/blogpost", data);
   return response;
@@ -80,7 +77,6 @@ const CreatePosts = () => {
   //     console.log(data);
   //   },
   // });
-  console.log(expanded);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -146,7 +142,7 @@ const CreatePosts = () => {
       >
         <ExpandMoreIcon aria-expanded={expanded} aria-label="show more" />
         <Typography variant="h5" component="span">
-          Click To Use AI
+          Expand To Use AI
         </Typography>
       </Grid>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -202,9 +198,16 @@ const CreatePosts = () => {
                 fullWidth
                 sx={{ marginBottom: "32px" }}
               />
-              <Button variant="contained" color="primary" type="submit">
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                sx={{ mb: 2 }}
+              >
                 Activate Post Muse
               </Button>
+              Please note that you have to enter the password at the bottom of
+              the page for now.
             </Grid>
           </form>
         </FormContainer>
@@ -240,8 +243,12 @@ const CreatePosts = () => {
               fullWidth
               multiline
               rows={16}
-              sx={{ marginBottom: "32px", height: 400 }}
+              sx={{ marginBottom: "32px", height: 400, whiteSpace: "pre" }}
             />
+
+            <Button variant="contained" color="primary" type="submit">
+              Submit
+            </Button>
 
             <MarginedTextField
               id="password-input"
@@ -252,12 +259,8 @@ const CreatePosts = () => {
               onChange={formik.handleChange}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
-              sx={{ marginBottom: "32px" }}
+              sx={{ mt: 2 }}
             />
-
-            <Button variant="contained" color="primary" type="submit">
-              Submit
-            </Button>
           </Grid>
         </form>
       </FormContainer>
