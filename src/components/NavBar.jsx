@@ -10,7 +10,6 @@ const NavBar = () => {
   const navigate = useNavigate();
   const handleChange = (_, newValue) => {
     setValue(newValue);
-    // can be useful later on
   };
 
   const LinkTab = (props) => {
@@ -56,9 +55,9 @@ const NavBar = () => {
           }}
         />
         <LinkTab label="For You" linkurl="" />
-        <LinkTab label="Midium" linkurl="antimedium" />
-        <LinkTab label="About Me" linkurl="" />
-        <LinkTab label="Logs & Roadmap" linkurl="" />
+        <LinkTab label="About Midium" linkurl="aboutapp" />
+        <LinkTab label="Anti-Medium" linkurl="antimedium" />
+        <LinkTab label="About Me" linkurl="about" />
       </Tabs>
     </Box>
   );
