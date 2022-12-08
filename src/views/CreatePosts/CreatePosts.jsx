@@ -1,16 +1,13 @@
 import { Button, Collapse, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import {
-  CenteredLoading,
-  FormContainer,
-  MarginedTextField,
-} from "../styles/styled";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { createPost, generateAiText } from "../utils/queries";
-import { validationsAISchema, validationsSchema } from "../utils/schemas";
+import { createPost, generateAiText } from "../../utils/queries";
+import { validationsAISchema, validationsSchema } from "../../utils/schemas";
+import { FormContainer, MarginedTextField } from "./CreatePostsStyle";
+import Loading from "../../components/Loading/Loading";
 
 const CreatePosts = () => {
   const [content, setContent] = useState("");
@@ -162,7 +159,7 @@ const CreatePosts = () => {
       <FormContainer>
         <form onSubmit={formik.handleSubmit}>
           {(generateAiTextMutation.isLoading ||
-            createPostMutation.isLoading) && <CenteredLoading />}
+            createPostMutation.isLoading) && <Loading />}
           {!generateAiTextMutation.isLoading && (
             <Grid
               container

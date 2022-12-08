@@ -1,10 +1,10 @@
 import React from "react";
-import { CenteredLoading } from "../styles/styled";
+import Loading from "../../components/Loading/Loading";
 
 const Antimedium = () => {
   return (
     <div>
-      <CenteredLoading />
+      <Loading />
     </div>
   );
 };

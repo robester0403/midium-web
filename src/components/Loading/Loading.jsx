@@ -14,6 +14,7 @@ const CenteredContainer = styled.div`
 `;
 const LoadingTypography = styled(Typography)`
   align-items: center;
+  justify-content: center;
   display: flex;
 `;
 
@@ -25,6 +26,7 @@ export default function Loading(props) {
       className={classNames(className)}
       data-testid="loading-container"
       variant="body1"
+      sx={{ mt: 3 }}
       {...rest}
     >
       <CircularProgress
