@@ -2,6 +2,17 @@
 
 import { TextField } from "@mui/material";
 import styled from "styled-components";
+import Loading from "../components/Loading";
+
+export const CenteredLoading = styled(Loading)`
+  && {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 48px auto;
+  }
+`;
 
 //----------------------------------------------------------------------------//
 // Article Card
