@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
-// import { useMutation } from "@tanstack/react-query";
 import { FormContainer, MarginedTextField } from "../styles/styled";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 const createPost = async (data) => {
   const response = await axios.post("http://127.0.0.1:5000/api/blogpost", data);
@@ -13,22 +14,10 @@ const createPost = async (data) => {
 };
 
 const generateAiText = async (data) => {
-  // console.log(JSON.stringify(data));
-  // const res = await fetch("http://127.0.0.1:5000/api/aitextgenerate", {
-  //   method: "POST",
-  //   mode: "no-cors",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(data),
-  // });
-  // console.log(res);
-  // return res.json();
   const res = await axios.post(
     "http://127.0.0.1:5000/api/aitextgenerate",
     data
   );
-  console.log(res.data.choices[0].text);
   return res.data.choices[0].text;
 };
 
@@ -60,23 +49,26 @@ const validationsAISchema = yup.object({
 });
 
 const CreatePosts = () => {
-  const [content, setContent] = useState(" "); // this is for AI generator
+  const [content, setContent] = useState("");
   const [expanded, setExpanded] = useState(true);
+  // unfortunately, using Formik state leads react state to think we are not controlling the inputs
 
-  // const createPostMutation = useMutation(createPost, {
-  //   onSuccess: (data) => {
-  //     // this works
-  //   },
-  //   onError: () => {
-  //     alert("there was an error");
-  //   },
-  // });
+  const navigate = useNavigate();
 
-  // const generateAiTextMutation = useMutation(generateAiText, {
-  //   onSuccess: (data) => {
-  //     console.log(data);
-  //   },
-  // });
+  const createPostMutation = useMutation(createPost, {
+    onSuccess: (data) => {
+      navigate("/");
+    },
+    onError: () => {
+      alert("there was an error");
+    },
+  });
+
+  const generateAiTextMutation = useMutation(generateAiText, {
+    onSuccess: (data) => {
+      setContent(data);
+    },
+  });
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -99,8 +91,7 @@ const CreatePosts = () => {
     validationSchema: validationsSchema,
     onSubmit: async (values) => {
       if (formik.values.password === "123456") {
-        // createPostMutation.mutate({ ...values });
-        await createPost({ ...values }).then((res) => {});
+        createPostMutation.mutate({ ...values });
       } else {
         alert("Wrong password");
       }
@@ -111,16 +102,8 @@ const CreatePosts = () => {
     initialValues: defaultAIValues,
     validationSchema: validationsAISchema,
     onSubmit: async (values) => {
-      // if (formik.values.password === "123456") {
-      //   generateAiTextMutation.mutate({ ...values });
-      // } else {
-      //   alert("Wrong password");
-      // }
       if (formik.values.password === "123456") {
-        console.log({ ...values });
-        await generateAiText({ ...values }).then((res) => {
-          setContent(res);
-        });
+        generateAiTextMutation.mutate({ ...values });
       } else {
         alert("Wrong password");
       }
@@ -128,7 +111,7 @@ const CreatePosts = () => {
   });
 
   useEffect(() => {
-    formik.setFieldValue("content", content); // for AI to connect to formik
+    formik.setFieldValue("content", content);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content]);
 
@@ -243,7 +226,7 @@ const CreatePosts = () => {
               fullWidth
               multiline
               rows={16}
-              sx={{ marginBottom: "32px", height: 400, whiteSpace: "pre" }}
+              sx={{ marginBottom: "32px", height: 400, whiteSpace: "pre-wrap" }}
             />
 
             <Button variant="contained" color="primary" type="submit">
