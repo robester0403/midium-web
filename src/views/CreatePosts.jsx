@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
-// import { useMutation } from "@tanstack/react-query";
 import { FormContainer, MarginedTextField } from "../styles/styled";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useMutation } from "@tanstack/react-query";
 
 const createPost = async (data) => {
   const response = await axios.post("http://127.0.0.1:5000/api/blogpost", data);
@@ -13,22 +13,10 @@ const createPost = async (data) => {
 };
 
 const generateAiText = async (data) => {
-  // console.log(JSON.stringify(data));
-  // const res = await fetch("http://127.0.0.1:5000/api/aitextgenerate", {
-  //   method: "POST",
-  //   mode: "no-cors",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(data),
-  // });
-  // console.log(res);
-  // return res.json();
   const res = await axios.post(
     "http://127.0.0.1:5000/api/aitextgenerate",
     data
   );
-  console.log(res.data.choices[0].text);
   return res.data.choices[0].text;
 };
 
@@ -63,14 +51,14 @@ const CreatePosts = () => {
   const [content, setContent] = useState(" "); // this is for AI generator
   const [expanded, setExpanded] = useState(true);
 
-  // const createPostMutation = useMutation(createPost, {
-  //   onSuccess: (data) => {
-  //     // this works
-  //   },
-  //   onError: () => {
-  //     alert("there was an error");
-  //   },
-  // });
+  const createPostMutation = useMutation(createPost, {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: () => {
+      alert("there was an error");
+    },
+  });
 
   // const generateAiTextMutation = useMutation(generateAiText, {
   //   onSuccess: (data) => {
@@ -99,8 +87,8 @@ const CreatePosts = () => {
     validationSchema: validationsSchema,
     onSubmit: async (values) => {
       if (formik.values.password === "123456") {
-        // createPostMutation.mutate({ ...values });
-        await createPost({ ...values }).then((res) => {});
+        createPostMutation.mutate({ ...values });
+        // await createPost({ ...values }).then((res) => {});
       } else {
         alert("Wrong password");
       }
