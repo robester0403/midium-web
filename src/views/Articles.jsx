@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import ArticleCard from "../components/ArticleCard";
+import { CenteredLoading } from "../styles/styled";
 
 const fetchArticles = async () => {
   const res = await fetch("http://127.0.0.1:5000/api/blogpost", {
@@ -14,7 +15,7 @@ const Articles = () => {
 
   return (
     <>
-      {allArticlesQuery?.isLoading && <div>Loading...</div>}
+      {allArticlesQuery?.isLoading && <CenteredLoading />}
       {allArticlesQuery?.error && <div>Error: {allArticlesQuery?.error}</div>}
       {allArticlesQuery?.data?.posts && (
         <div>

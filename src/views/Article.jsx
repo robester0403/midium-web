@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useQuery } from "@tanstack/react-query";
+import { CenteredLoading } from "../styles/styled";
 
 const fetchArticle = async (id) => {
   const res = await fetch(`http://127.0.0.1:5000/api/blogpost/${id}`, {
@@ -22,7 +23,7 @@ const Article = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading, error } = useQuery(["article", id], fetchArticle);
+  const { data, isLoading } = useQuery(["article", id], fetchArticle);
 
   const { author, content, title } = data?.data || {};
   const handleBack = () => {
@@ -35,6 +36,7 @@ const Article = () => {
 
   return (
     <>
+      {isLoading && <CenteredLoading />}
       {data && (
         <ArticleCard>
           <CardContent>

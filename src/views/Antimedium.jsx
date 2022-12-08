@@ -1,7 +1,12 @@
 import React from "react";
+import { CenteredLoading } from "../styles/styled";
 
 const Antimedium = () => {
-  return <div>Antimedium</div>;
+  return (
+    <div>
+      <CenteredLoading />
+    </div>
+  );
 };
 
 export default Antimedium;

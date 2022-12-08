@@ -3,7 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
-import { FormContainer, MarginedTextField } from "../styles/styled";
+import {
+  CenteredLoading,
+  FormContainer,
+  MarginedTextField,
+} from "../styles/styled";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
@@ -56,7 +60,7 @@ const CreatePosts = () => {
   const navigate = useNavigate();
 
   const createPostMutation = useMutation(createPost, {
-    onSuccess: (data) => {
+    onSuccess: (_) => {
       navigate("/");
     },
     onError: () => {
@@ -197,54 +201,64 @@ const CreatePosts = () => {
       </Collapse>
       <FormContainer>
         <form onSubmit={formik.handleSubmit}>
-          <Grid
-            container
-            alignItems="center"
-            justify="center"
-            direction="column"
-          >
-            <MarginedTextField
-              id="title-input"
-              name="title"
-              label="Title"
-              value={formik.values.title}
-              onChange={formik.handleChange}
-              error={formik.touched.title && Boolean(formik.errors.title)}
-              helperText={formik.touched.title && formik.errors.title}
-              fullWidth
-              sx={{ marginBottom: "32px" }}
-            />
+          {(generateAiTextMutation.isLoading ||
+            createPostMutation.isLoading) && <CenteredLoading />}
+          {!generateAiTextMutation.isLoading && (
+            <Grid
+              container
+              alignItems="center"
+              justify="center"
+              direction="column"
+            >
+              <MarginedTextField
+                id="title-input"
+                name="title"
+                label="Title"
+                value={formik.values.title}
+                onChange={formik.handleChange}
+                error={formik.touched.title && Boolean(formik.errors.title)}
+                helperText={formik.touched.title && formik.errors.title}
+                fullWidth
+                sx={{ marginBottom: "32px" }}
+              />
 
-            <MarginedTextField
-              id="content-input"
-              name="content"
-              label="Content"
-              value={formik.values.content}
-              onChange={formik.handleChange}
-              error={formik.touched.content && Boolean(formik.errors.content)}
-              helperText={formik.touched.content && formik.errors.content}
-              fullWidth
-              multiline
-              rows={16}
-              sx={{ marginBottom: "32px", height: 400, whiteSpace: "pre-wrap" }}
-            />
+              <MarginedTextField
+                id="content-input"
+                name="content"
+                label="Content"
+                value={formik.values.content}
+                onChange={formik.handleChange}
+                error={formik.touched.content && Boolean(formik.errors.content)}
+                helperText={formik.touched.content && formik.errors.content}
+                fullWidth
+                multiline
+                rows={16}
+                sx={{
+                  marginBottom: "32px",
+                  height: 400,
+                  whiteSpace: "pre-wrap",
+                }}
+              />
 
-            <Button variant="contained" color="primary" type="submit">
-              Submit
-            </Button>
+              <Button variant="contained" color="primary" type="submit">
+                Submit
+              </Button>
 
-            <MarginedTextField
-              id="password-input"
-              name="password"
-              label="Password"
-              type="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-              sx={{ mt: 2 }}
-            />
-          </Grid>
+              <MarginedTextField
+                id="password-input"
+                name="password"
+                label="Password"
+                type="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.password && Boolean(formik.errors.password)
+                }
+                helperText={formik.touched.password && formik.errors.password}
+                sx={{ mt: 2 }}
+              />
+            </Grid>
+          )}
         </form>
       </FormContainer>
     </>
