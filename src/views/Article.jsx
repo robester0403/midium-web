@@ -10,27 +10,20 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useQuery } from "@tanstack/react-query";
-// const data = {
-//   title: "This is a fake Article",
-//   author: "Robert So",
-//   content:
-//     "This article can beat all articles.This article can beat all articles.This article can beat all articles.This article can beat all articles.This article can beat all articles.This article can beat all articles.This article can beat all articles.This article can beat all articles.This article can beat all articles.This article can beat all articles.This article can beat all articles.This article can beat all articles.This article can beat all articles.This article can beat all articles.",
-// };
+
+const fetchArticle = async (id) => {
+  const res = await fetch(`http://127.0.0.1:5000/api/blogpost/${id}`, {
+    method: "GET",
+  });
+  return res.json();
+};
 
 const Article = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const fetchArticle = async () => {
-    const res = await fetch(`http://127.0.0.1:5000/api/blogpost/${id}`, {
-      method: "GET",
-    });
-    return res.json();
-  };
-
   const { data, isLoading, error } = useQuery(["article", id], fetchArticle);
 
-  console.log(data);
   const { author, content, title } = data?.data || {};
   const handleBack = () => {
     navigate("/");

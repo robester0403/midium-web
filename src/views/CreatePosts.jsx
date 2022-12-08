@@ -6,6 +6,7 @@ import axios from "axios";
 import { FormContainer, MarginedTextField } from "../styles/styled";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 const createPost = async (data) => {
   const response = await axios.post("http://127.0.0.1:5000/api/blogpost", data);
@@ -48,23 +49,26 @@ const validationsAISchema = yup.object({
 });
 
 const CreatePosts = () => {
-  const [content, setContent] = useState(" "); // this is for AI generator
+  const [content, setContent] = useState("");
   const [expanded, setExpanded] = useState(true);
+  // unfortunately, using Formik state leads react state to think we are not controlling the inputs
+
+  const navigate = useNavigate();
 
   const createPostMutation = useMutation(createPost, {
     onSuccess: (data) => {
-      console.log(data);
+      navigate("/");
     },
     onError: () => {
       alert("there was an error");
     },
   });
 
-  // const generateAiTextMutation = useMutation(generateAiText, {
-  //   onSuccess: (data) => {
-  //     console.log(data);
-  //   },
-  // });
+  const generateAiTextMutation = useMutation(generateAiText, {
+    onSuccess: (data) => {
+      setContent(data);
+    },
+  });
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -88,7 +92,6 @@ const CreatePosts = () => {
     onSubmit: async (values) => {
       if (formik.values.password === "123456") {
         createPostMutation.mutate({ ...values });
-        // await createPost({ ...values }).then((res) => {});
       } else {
         alert("Wrong password");
       }
@@ -99,16 +102,8 @@ const CreatePosts = () => {
     initialValues: defaultAIValues,
     validationSchema: validationsAISchema,
     onSubmit: async (values) => {
-      // if (formik.values.password === "123456") {
-      //   generateAiTextMutation.mutate({ ...values });
-      // } else {
-      //   alert("Wrong password");
-      // }
       if (formik.values.password === "123456") {
-        console.log({ ...values });
-        await generateAiText({ ...values }).then((res) => {
-          setContent(res);
-        });
+        generateAiTextMutation.mutate({ ...values });
       } else {
         alert("Wrong password");
       }
@@ -116,7 +111,7 @@ const CreatePosts = () => {
   });
 
   useEffect(() => {
-    formik.setFieldValue("content", content); // for AI to connect to formik
+    formik.setFieldValue("content", content);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content]);
 
@@ -231,7 +226,7 @@ const CreatePosts = () => {
               fullWidth
               multiline
               rows={16}
-              sx={{ marginBottom: "32px", height: 400, whiteSpace: "pre" }}
+              sx={{ marginBottom: "32px", height: 400, whiteSpace: "pre-wrap" }}
             />
 
             <Button variant="contained" color="primary" type="submit">
