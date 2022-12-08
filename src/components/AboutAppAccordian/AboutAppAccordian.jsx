@@ -6,8 +6,8 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import styled from "styled-components";
 import { Divider } from "@mui/material";
+import { AccordionContainer } from "./AboutAppAccordianStyle";
 
 const AboutAppAccordian = () => {
   return (
@@ -136,9 +136,3 @@ const AboutAppAccordian = () => {
 };
 
 export default AboutAppAccordian;
-
-const AccordionContainer = styled.div`
-  width: 100%;
-  padding: 32px 8px 8px 8px;
-  box-sizing: border-box;
-`;

@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import midium from "../../assets/images/Midium.jpg";
+import { HeaderContainer } from "./HeaderStyle";
 
 const Header = () => {
   return (
@@ -14,14 +14,3 @@ const Header = () => {
 };
 
 export default Header;
-
-const HeaderContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 16px;
-  box-sizing: border-box;
-  box-shadow: 0 4px 2px -2px lightgray;
-  width: 100%;
-`;
