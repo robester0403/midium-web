@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useQuery } from "@tanstack/react-query";
-import { CenteredLoading } from "../styles/styled";
+import { CenteredLoading } from "../../styles/styled";
 
 const fetchArticle = async (id) => {
   const res = await fetch(`http://127.0.0.1:5000/api/blogpost/${id}`, {

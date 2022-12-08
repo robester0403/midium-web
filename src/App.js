@@ -3,13 +3,13 @@ import { BrowserRouter } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import MainPage from "./pages/MainPage";
-import Articles from "./views/Articles";
-import Antimedium from "./views/Antimedium";
-import CreatePosts from "./views/CreatePosts";
 import { MuiThemeConfig } from "./styles/MuiThemeConfig";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import Article from "./views/Article";
-import AboutApp from "./views/AboutApp";
+import Articles from "./views/Articles/Articles";
+import Antimedium from "./views/Antimedium/Antimedium";
+import CreatePosts from "./views/CreatePosts/CreatePosts";
+import { Article } from "@mui/icons-material";
+import AboutApp from "./views/AboutApp/AboutApp";
 
 function App() {
   document.title = "Midium, the medium clone";

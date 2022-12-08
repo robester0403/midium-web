@@ -5,12 +5,12 @@ import {
   CenteredLoading,
   FormContainer,
   MarginedTextField,
-} from "../styles/styled";
+} from "../../styles/styled";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { createPost, generateAiText } from "../utils/queries";
-import { validationsAISchema, validationsSchema } from "../utils/schemas";
+import { createPost, generateAiText } from "../../utils/queries";
+import { validationsAISchema, validationsSchema } from "../../utils/schemas";
 
 const CreatePosts = () => {
   const [content, setContent] = useState("");

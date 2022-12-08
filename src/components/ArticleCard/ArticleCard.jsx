@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { CardContainer, TextHighlight } from "../styles/styled";
+import { CardContainer, TextHighlight } from "../../styles/styled";
 
 const ArticleCard = ({ id, title, author, content }) => {
   const navigate = useNavigate();

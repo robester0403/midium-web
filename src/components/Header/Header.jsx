@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import midium from "../assets/images/Midium.jpg";
+import midium from "../../assets/images/Midium.jpg";
 
 const Header = () => {
   return (
