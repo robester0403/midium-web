@@ -26,7 +26,7 @@ function App() {
                 <Route path="/antimedium" element={<Antimedium />} />
                 <Route path="/createposts" element={<CreatePosts />} />
                 <Route path="/:id" element={<Article />} />
-                <Route path="/about" element={<Articles />} />
+                <Route path="/about" element={<AboutApp />} />
                 <Route path="/aboutapp" element={<AboutApp />} />
               </Route>
             </Routes>
