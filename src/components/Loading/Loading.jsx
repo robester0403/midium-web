@@ -34,7 +34,7 @@ export default function Loading(props) {
         sx={{ mr: 1 }}
         data-testid="loading-icon"
         thickness={small ? 4 : 5}
-        size={small ? 24 : 40}
+        size={small ? 12 : 40}
       />
       {props.message}
     </LoadingTypography>

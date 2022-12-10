@@ -31,7 +31,7 @@ describe("<Loading />", () => {
 
     expect(getByTestId("loading-icon")).toHaveStyle("height: 12px");
     expect(getByTestId("loading-container").classList).toContain(
-      "MuiTypography-body2"
+      "MuiTypography-body1"
     );
   });
 });
