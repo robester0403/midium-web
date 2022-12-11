@@ -3,8 +3,8 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useQuery } from "@tanstack/react-query";
-import { CenteredLoading } from "../../styles/styled";
 import { ArticleCard } from "./ArticleStyle";
+import Loading from "../../components/Loading/Loading";
 
 const fetchArticle = async (id) => {
   const res = await fetch(`http://127.0.0.1:5000/api/blogpost/${id}`, {
@@ -16,8 +16,8 @@ const fetchArticle = async (id) => {
 const Article = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const { data, isLoading } = useQuery(["article", id], fetchArticle);
+  console.log(id);
+  const { data, isLoading } = useQuery(["article", id], () => fetchArticle(id));
 
   const { author, content, title } = data?.data || {};
   const handleBack = () => {
@@ -30,7 +30,7 @@ const Article = () => {
 
   return (
     <>
-      {isLoading && <CenteredLoading />}
+      {isLoading && <Loading />}
       {data && (
         <ArticleCard>
           <CardContent>
@@ -38,7 +38,6 @@ const Article = () => {
               fontSize="medium"
               onClick={handleBack}
               cursor="pointer"
-              gutterbottom
             />
             <Typography variant="h5" component="div">
               {title}
