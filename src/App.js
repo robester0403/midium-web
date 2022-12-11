@@ -8,8 +8,9 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import Articles from "./views/Articles/Articles";
 import Antimedium from "./views/Antimedium/Antimedium";
 import CreatePosts from "./views/CreatePosts/CreatePosts";
-import { Article } from "@mui/icons-material";
+
 import AboutApp from "./views/AboutApp/AboutApp";
+import Article from "./views/Article/Article";
 
 function App() {
   document.title = "Midium, the medium clone";
@@ -23,9 +24,10 @@ function App() {
             <Routes>
               <Route path="" element={<MainPage />}>
                 <Route path="/" element={<Articles />} />
+                <Route path="/:id" element={<Article />} />
                 <Route path="/antimedium" element={<Antimedium />} />
                 <Route path="/createposts" element={<CreatePosts />} />
-                <Route path="/:id" element={<Article />} />
+
                 <Route path="/about" element={<AboutApp />} />
                 <Route path="/aboutapp" element={<AboutApp />} />
               </Route>
