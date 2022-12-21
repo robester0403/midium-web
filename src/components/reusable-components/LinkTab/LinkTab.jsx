@@ -7,7 +7,7 @@ const LinkTab = ({ linkurl, external, ...rest }) => {
 
   const openNewTab = (url) => {
     window.open(url, "_blank", "noopener,noreferrer");
-    navigate("antimedium");
+    navigate("about");
   };
   return (
     <Tab
