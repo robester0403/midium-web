@@ -10,3 +10,7 @@ export const HeaderContainer = styled.div`
   box-shadow: 0 4px 2px -2px lightgray;
   width: 100%;
 `;
+
+export const Logo = styled.div`
+  cursor: pointer;
+`;
