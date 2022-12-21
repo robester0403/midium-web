@@ -20,7 +20,11 @@ const Articles = () => {
       {allArticlesQuery?.data?.posts && (
         <div>
           {allArticlesQuery?.data?.posts.map((article) => (
-            <ArticleCard key={article.id + article.title} {...article} />
+            <ArticleCard
+              key={article.id + article.title}
+              allArticlesQuery={allArticlesQuery}
+              {...article}
+            />
           ))}
         </div>
       )}

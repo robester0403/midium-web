@@ -16,7 +16,7 @@ const fetchArticle = async (id) => {
 const Article = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  console.log(id);
+
   const { data, isLoading } = useQuery(["article", id], () => fetchArticle(id));
 
   const { author, content, title } = data?.data || {};
