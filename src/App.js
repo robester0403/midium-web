@@ -29,6 +29,7 @@ function App() {
                 <Route path="/createposts" element={<CreatePosts />} />
                 <Route path="/about" element={<GoHome />} />
                 <Route path="/aboutapp" element={<AboutApp />} />
+                <Route path="*" element={<GoHome />} />
               </Route>
             </Routes>
           </BrowserRouter>
