@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { CircularProgress, Typography } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import { CenteredContainer, LoadingTypography } from "./LoadingStyle";
 
 export default function Loading(props) {
@@ -20,7 +20,7 @@ export default function Loading(props) {
         thickness={small ? 4 : 5}
         size={small ? 12 : 40}
       />
-      {props.message}
+      {message}
     </LoadingTypography>
   );
 
