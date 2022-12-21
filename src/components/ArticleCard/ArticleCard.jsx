@@ -20,15 +20,16 @@ const ArticleCard = ({ id, title, author, content, allArticlesQuery }) => {
   };
 
   const formattedContent =
-    content.length > 100 ? content.substring(0, 97) + "..." : content + "...";
+    content.length > 100 ? content.substring(0, 147) + "..." : content + "...";
 
   return (
     <CardContainer onClick={handleClick} cursor="pointer">
       <CardTopContainer>
         <Typography variant="h5">
-          <TitleContainer>
-            <div>{title}</div> <TextHighlight>by {author}</TextHighlight>
-          </TitleContainer>
+          <TitleWrapper>
+            <div>{title}</div>
+            <TextHighlight>by {author}</TextHighlight>
+          </TitleWrapper>
         </Typography>
         <IconButton onClick={handleDelete}>{<ClearIcon />}</IconButton>
       </CardTopContainer>
@@ -47,7 +48,7 @@ const CardTopContainer = styled.div`
   align-items: flex-start;
 `;
 
-const TitleContainer = styled.div`
+const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;

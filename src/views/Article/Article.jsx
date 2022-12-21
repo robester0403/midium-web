@@ -11,7 +11,7 @@ const Article = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery(["article", id], fetchArticle(id));
+  const { data, isLoading } = useQuery(["article", id], () => fetchArticle(id));
 
   const { author, content, title } = data?.data || {};
   const handleBack = () => {

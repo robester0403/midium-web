@@ -2,24 +2,19 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import ArticleCard from "../../components/ArticleCard/ArticleCard";
 import Loading from "../../components/reusable-components/Loading/Loading";
-
-const fetchArticles = async () => {
-  const res = await fetch("http://127.0.0.1:5000/api/blogpost", {
-    method: "GET",
-  });
-  return res.json();
-};
+import { fetchArticles } from "../../utils/axios";
 
 const Articles = () => {
   const allArticlesQuery = useQuery(["allArticles"], fetchArticles);
+  const { data, isLoading, error } = allArticlesQuery;
 
   return (
     <>
-      {allArticlesQuery?.isLoading && <Loading />}
-      {allArticlesQuery?.error && <div>Error: {allArticlesQuery?.error}</div>}
-      {allArticlesQuery?.data?.posts && (
+      {isLoading && <Loading />}
+      {error && <div>Error: {error}</div>}
+      {data?.posts && (
         <div>
-          {allArticlesQuery?.data?.posts.map((article) => (
+          {data?.posts.map((article) => (
             <ArticleCard
               key={article.id + article.title}
               allArticlesQuery={allArticlesQuery}

@@ -11,6 +11,10 @@ export const createArticle = async (data) => {
   return res;
 };
 
+export const fetchArticles = async () => {
+  const res = await api.get("blogpost");
+  return res.data;
+};
 export const fetchArticle = async (id) => {
   const res = await api.get(`blogpost/${id}`);
   return res.data;
