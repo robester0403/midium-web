@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { CardContainer, TextHighlight } from "./ArticleCardStyle";
 import ClearIcon from "@mui/icons-material/Clear";
 import styled from "styled-components";
-import { deleteArticle } from "../../utils/queries";
+import { deleteArticle } from "../../utils/axios";
 
 const ArticleCard = ({ id, title, author, content, allArticlesQuery }) => {
   const navigate = useNavigate();

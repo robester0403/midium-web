@@ -5,19 +5,13 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useQuery } from "@tanstack/react-query";
 import { ArticleCard } from "./ArticleStyle";
 import Loading from "../../components/reusable-components/Loading/Loading";
-
-const fetchArticle = async (id) => {
-  const res = await fetch(`http://127.0.0.1:5000/api/blogpost/${id}`, {
-    method: "GET",
-  });
-  return res.json();
-};
+import { fetchArticle } from "../../utils/axios";
 
 const Article = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery(["article", id], () => fetchArticle(id));
+  const { data, isLoading } = useQuery(["article", id], fetchArticle(id));
 
   const { author, content, title } = data?.data || {};
   const handleBack = () => {
