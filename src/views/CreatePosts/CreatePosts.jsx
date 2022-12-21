@@ -51,11 +51,7 @@ const CreatePosts = () => {
     initialValues: defaultValues,
     validationSchema: validationsSchema,
     onSubmit: async (values) => {
-      if (formik.values.password === "123456") {
-        createArticleMutation.mutate({ ...values });
-      } else {
-        alert("Wrong password");
-      }
+      createArticleMutation.mutate({ ...values });
     },
   });
 
@@ -63,11 +59,7 @@ const CreatePosts = () => {
     initialValues: defaultAIValues,
     validationSchema: validationsAISchema,
     onSubmit: async (values) => {
-      if (formik.values.password === "123456") {
-        generateAiTextMutation.mutate({ ...values });
-      } else {
-        alert("Wrong password");
-      }
+      generateAiTextMutation.mutate({ ...values });
     },
   });
 
@@ -150,8 +142,6 @@ const CreatePosts = () => {
               >
                 Activate Post Muse
               </Button>
-              Please note that you have to enter the password at the bottom of
-              the page for now.
             </Grid>
           </form>
         </FormContainer>
@@ -200,20 +190,6 @@ const CreatePosts = () => {
               <Button variant="contained" color="primary" type="submit">
                 Submit
               </Button>
-
-              <MarginedTextField
-                id="password-input"
-                name="password"
-                label="Password"
-                type="password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.password && Boolean(formik.errors.password)
-                }
-                helperText={formik.touched.password && formik.errors.password}
-                sx={{ mt: 2 }}
-              />
             </Grid>
           )}
         </form>
