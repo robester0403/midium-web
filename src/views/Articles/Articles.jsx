@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import ArticleCard from "../../components/ArticleCard/ArticleCard";
-import Loading from "../../components/Loading/Loading";
+import Loading from "../../components/reusable-components/Loading/Loading";
 
 const fetchArticles = async () => {
   const res = await fetch("http://127.0.0.1:5000/api/blogpost", {
