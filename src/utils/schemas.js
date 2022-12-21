@@ -4,6 +4,7 @@ export const validationsSchema = yup.object({
   title: yup
     .string("Enter your title (required)")
     .min(3, "Title must be at least 3 characters")
+    .max(30, "Title cannot exceed 30 characters")
     .required("Title is required"),
   content: yup
     .string("Enter your title (required)")

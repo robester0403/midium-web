@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { createPost, generateAiText } from "../../utils/queries";
+import { createArticle, generateAiText } from "../../utils/axios";
 import { validationsAISchema, validationsSchema } from "../../utils/schemas";
 import { FormContainer, MarginedTextField } from "./CreatePostsStyle";
 import Loading from "../../components/reusable-components/Loading/Loading";
@@ -16,7 +16,7 @@ const CreatePosts = () => {
 
   const navigate = useNavigate();
 
-  const createPostMutation = useMutation(createPost, {
+  const createArticleMutation = useMutation(createArticle, {
     onSuccess: (_) => {
       navigate("/");
     },
@@ -52,7 +52,7 @@ const CreatePosts = () => {
     validationSchema: validationsSchema,
     onSubmit: async (values) => {
       if (formik.values.password === "123456") {
-        createPostMutation.mutate({ ...values });
+        createArticleMutation.mutate({ ...values });
       } else {
         alert("Wrong password");
       }
@@ -159,7 +159,7 @@ const CreatePosts = () => {
       <FormContainer>
         <form onSubmit={formik.handleSubmit}>
           {(generateAiTextMutation.isLoading ||
-            createPostMutation.isLoading) && <Loading />}
+            createArticleMutation.isLoading) && <Loading />}
           {!generateAiTextMutation.isLoading && (
             <Grid
               container
