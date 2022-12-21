@@ -1,14 +1,22 @@
 import { Tab } from "@mui/material";
 import React from "react";
+import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LinkTab = ({ linkurl, external, ...rest }) => {
   const navigate = useNavigate();
 
-  const openNewTab = (url) => {
-    window.open(url, "_blank", "noopener,noreferrer");
-    navigate("about");
-  };
+  const openNewTab = useCallback(
+    (url) => {
+      const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+      if (newWindow) {
+        newWindow.opener = null;
+      }
+      navigate("about");
+    },
+    [navigate]
+  );
+
   return (
     <Tab
       onClick={() => {
