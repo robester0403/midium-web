@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { createPost, generateAiText } from "../../utils/queries";
 import { validationsAISchema, validationsSchema } from "../../utils/schemas";
 import { FormContainer, MarginedTextField } from "./CreatePostsStyle";
-import Loading from "../../components/Loading/Loading";
+import Loading from "../../components/reusable-components/Loading/Loading";
 
 const CreatePosts = () => {
   const [content, setContent] = useState("");

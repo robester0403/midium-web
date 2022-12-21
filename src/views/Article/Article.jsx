@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useQuery } from "@tanstack/react-query";
 import { ArticleCard } from "./ArticleStyle";
-import Loading from "../../components/Loading/Loading";
+import Loading from "../../components/reusable-components/Loading/Loading";
 
 const fetchArticle = async (id) => {
   const res = await fetch(`http://127.0.0.1:5000/api/blogpost/${id}`, {

@@ -3,7 +3,8 @@ import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useNavigate } from "react-router-dom";
-import { NavBarAddIcon } from "./NavBarStyle";
+import AddIcon from "@mui/icons-material/Add";
+import LinkTab from "../reusable-components/LinkTab/LinkTab";
 
 const NavBar = () => {
   const [tabValue, setTabValue] = useState(1);
@@ -11,23 +12,6 @@ const NavBar = () => {
 
   const handleTabHighlight = (_, newValue) => {
     setTabValue(newValue);
-  };
-
-  const openNewTab = (url) => {
-    window.open(url, "_blank", "noopener,noreferrer");
-    navigate("antimedium");
-  };
-
-  const LinkTab = ({ linkurl, external, ...rest }) => {
-    return (
-      <Tab
-        onClick={() => {
-          external ? openNewTab(`${linkurl}`) : navigate(`/${linkurl}`);
-        }}
-        sx={{ textTransform: "none" }}
-        {...rest}
-      />
-    );
   };
 
   return (
@@ -40,7 +24,7 @@ const NavBar = () => {
         aria-label="nav tabs for midium"
       >
         <Tab
-          icon={<NavBarAddIcon />}
+          icon={<AddIcon sx={addIconStyleProps} />}
           sx={{ padding: "0px", margin: "0px", minWidth: "0px" }}
           aria-label="add"
           onClick={() => {
@@ -53,7 +37,7 @@ const NavBar = () => {
         <LinkTab
           label="About Me"
           linkurl="https://www.robertkso.com/"
-          external={true}
+          external
         />
       </Tabs>
     </Box>
@@ -61,3 +45,13 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+const addIconStyleProps = {
+  padding: "0px",
+  margin: "0px",
+  minWidth: "0px",
+  "&:hover": {
+    backgroundColor: "lightgrey",
+    borderRadius: "50%",
+  },
+};
