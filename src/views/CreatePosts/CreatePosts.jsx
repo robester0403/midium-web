@@ -139,6 +139,10 @@ const CreatePosts = () => {
                 color="primary"
                 type="submit"
                 sx={{ mb: 2 }}
+                disabled={
+                  generateAiTextMutation.isLoading ||
+                  createArticleMutation.isLoading
+                }
               >
                 Activate Post Muse
               </Button>
@@ -168,7 +172,6 @@ const CreatePosts = () => {
                 fullWidth
                 sx={{ marginBottom: "32px" }}
               />
-
               <MarginedTextField
                 id="content-input"
                 name="content"
@@ -186,7 +189,6 @@ const CreatePosts = () => {
                   whiteSpace: "pre-wrap",
                 }}
               />
-
               <Button variant="contained" color="primary" type="submit">
                 Submit
               </Button>
