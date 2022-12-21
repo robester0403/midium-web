@@ -3,23 +3,29 @@ import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useNavigate } from "react-router-dom";
-import AddIcon from "@mui/icons-material/Add";
+import { NavBarAddIcon } from "./NavBarStyle";
 
 const NavBar = () => {
-  const [value, setValue] = useState(1);
+  const [tabValue, setTabValue] = useState(1);
   const navigate = useNavigate();
-  const handleChange = (_, newValue) => {
-    setValue(newValue);
+
+  const handleTabHighlight = (_, newValue) => {
+    setTabValue(newValue);
   };
 
-  const LinkTab = (props) => {
+  const openNewTab = (url) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+    navigate("antimedium");
+  };
+
+  const LinkTab = ({ linkurl, external, ...rest }) => {
     return (
       <Tab
-        onClick={(_) => {
-          navigate(`/${props.linkurl}`);
+        onClick={() => {
+          external ? openNewTab(`${linkurl}`) : navigate(`/${linkurl}`);
         }}
         sx={{ textTransform: "none" }}
-        {...props}
+        {...rest}
       />
     );
   };
@@ -27,37 +33,28 @@ const NavBar = () => {
   return (
     <Box sx={{ width: "100%", boxSizing: "border-box" }}>
       <Tabs
-        value={value}
-        onChange={handleChange}
+        value={tabValue}
+        onChange={handleTabHighlight}
         variant="scrollable"
         scrollButtons="auto"
         aria-label="nav tabs for midium"
       >
-        we need to fix this linkTab to something better
         <Tab
-          icon={
-            <AddIcon
-              sx={{
-                padding: "0px",
-                margin: "0px",
-                minWidth: "0px",
-                "&:hover": {
-                  backgroundColor: "lightgrey",
-                  borderRadius: "50%",
-                },
-              }}
-            />
-          }
+          icon={<NavBarAddIcon />}
           sx={{ padding: "0px", margin: "0px", minWidth: "0px" }}
           aria-label="add"
-          onClick={(event) => {
+          onClick={() => {
             navigate("createposts");
           }}
         />
         <LinkTab label="For You" linkurl="" />
         <LinkTab label="About Midium" linkurl="aboutapp" />
         <LinkTab label="Anti-Medium" linkurl="antimedium" />
-        <LinkTab label="About Me" linkurl="about" />
+        <LinkTab
+          label="About Me"
+          linkurl="https://www.robertkso.com/"
+          external={true}
+        />
       </Tabs>
     </Box>
   );
