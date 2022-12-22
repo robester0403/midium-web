@@ -6,7 +6,6 @@ import MainPage from "./pages/MainPage";
 import { MuiThemeConfig } from "./styles/MuiThemeConfig";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import Articles from "./views/Articles/Articles";
-import Antimedium from "./views/Antimedium/Antimedium";
 import CreatePosts from "./views/CreatePosts/CreatePosts";
 import AboutApp from "./views/AboutApp/AboutApp";
 import Article from "./views/Article/Article";
@@ -36,7 +35,6 @@ function App() {
                 <Route path="" element={<MainPage />}>
                   <Route path="/" element={<Articles />} />
                   <Route path="/:id" element={<Article />} />
-                  <Route path="/antimedium" element={<Antimedium />} />
                   <Route path="/createposts" element={<CreatePosts />} />
                   <Route path="/about" element={<GoHome />} />
                   <Route path="/aboutapp" element={<AboutApp />} />
