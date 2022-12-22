@@ -15,7 +15,7 @@ const GoHome = () => {
       <Typography variant="body1" component="div">
         Go back to home page
       </Typography>
-      <Button variant="contained" color="secondary" onClick={handleGoHome}>
+      <Button variant="outlined" color="primary" onClick={handleGoHome}>
         Go Home
       </Button>
     </PageContainer>

@@ -45,4 +45,21 @@ export const MuiThemeConfig = createTheme({
       marginLeft: "0em",
     },
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: "16px",
+          textTransform: "none",
+          fontSize: "16px",
+          fontWeight: 600,
+          lineHeight: "1.5em",
+          letterSpacing: "0em",
+        },
+        containedPrimary: {
+          backgroundColor: "#050505",
+        },
+      },
+    },
+  },
 });

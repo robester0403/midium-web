@@ -1,16 +1,21 @@
 import styled from "styled-components";
 
 export const CardContainer = styled.div`
-  margin-top: 16px;
+  padding: 8px 4px 0 4px;
   max-width: 480px;
   border-bottom: 1px solid lightgray;
-  height: 160px;
+  height: 100%;
   cursor: pointer;
+  &:hover {
+    background-color: #f5f5f5;
+    transition: background-color 0.4s ease-in-out;
+  }
 `;
 
 export const TextHighlight = styled.div`
   color: grey;
   font-weight: 400;
+  font-size: 14px;
 `;
 
 export const CardTopContainer = styled.div`
