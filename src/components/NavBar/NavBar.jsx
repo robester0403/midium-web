@@ -31,11 +31,10 @@ const NavBar = () => {
             navigate("createposts");
           }}
         />
-        <LinkTab label="For You" linkurl="" />
-        <LinkTab label="About Midium" linkurl="aboutapp" />
-        <LinkTab label="Anti-Medium" linkurl="antimedium" />
+        <LinkTab label="Your Articles" linkurl="" />
+        <LinkTab label="What is Midium" linkurl="aboutapp" />
         <LinkTab
-          label="About Me"
+          label="About The Author"
           linkurl="https://www.robertkso.com/"
           external
         />

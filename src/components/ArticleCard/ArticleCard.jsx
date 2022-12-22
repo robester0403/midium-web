@@ -1,9 +1,13 @@
 import { CardContent, IconButton, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { CardContainer, TextHighlight } from "./ArticleCardStyle";
+import {
+  CardContainer,
+  CardTopContainer,
+  TextHighlight,
+  TitleWrapper,
+} from "./ArticleCardStyle";
 import ClearIcon from "@mui/icons-material/Clear";
-import styled from "styled-components";
 import { deleteArticle } from "../../utils/axios";
 
 const ArticleCard = ({ id, title, author, content, allArticlesQuery }) => {
@@ -41,14 +45,3 @@ const ArticleCard = ({ id, title, author, content, allArticlesQuery }) => {
 };
 
 export default ArticleCard;
-
-const CardTopContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-`;
-
-const TitleWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;

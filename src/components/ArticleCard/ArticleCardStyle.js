@@ -12,3 +12,14 @@ export const TextHighlight = styled.div`
   color: grey;
   font-weight: 400;
 `;
+
+export const CardTopContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+`;
+
+export const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;

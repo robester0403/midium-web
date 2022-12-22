@@ -82,7 +82,9 @@ const CreatePosts = () => {
 
   useEffect(() => {
     formik.setFieldValue("content", content);
-  }, [formik, content]);
+    // We cannot add Formik to the dependency array because it will cause an infinite loop
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content]);
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { Button, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { PageContainer } from "../AboutApp/AboutAppStyle";
+import { PageContainer } from "./GoHomeStyle";
 
 const GoHome = () => {
   const navigate = useNavigate();
