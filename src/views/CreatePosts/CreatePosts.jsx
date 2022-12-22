@@ -8,11 +8,13 @@ import { createArticle, generateAiText } from "../../utils/axios";
 import { validationsAISchema, validationsSchema } from "../../utils/schemas";
 import { FormContainer, MarginedTextField } from "./CreatePostsStyle";
 import Loading from "../../components/reusable-components/Loading/Loading";
+import SnackbarMessage from "../../components/reusable-components/SnackbarMessage/SnackbarMessage";
 
 const CreatePosts = () => {
   const [content, setContent] = useState("");
   const [expanded, setExpanded] = useState(true);
-  // unfortunately, using Formik state leads react state to think we are not controlling the inputs
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -21,13 +23,18 @@ const CreatePosts = () => {
       navigate("/");
     },
     onError: () => {
-      alert("there was an error");
+      setOpenSnackbar(true);
+      setSnackbarMessage({ message: createArticleMutation.error.message });
     },
   });
 
   const generateAiTextMutation = useMutation(generateAiText, {
     onSuccess: (data) => {
       setContent(data);
+    },
+    onError: () => {
+      setOpenSnackbar(true);
+      setSnackbarMessage({ message: generateAiTextMutation.error.message });
     },
   });
 
@@ -51,11 +58,11 @@ const CreatePosts = () => {
     initialValues: defaultValues,
     validationSchema: validationsSchema,
     onSubmit: async (values) => {
-      if (formik.values.password === "123456") {
-        createArticleMutation.mutate({ ...values });
-      } else {
-        alert("Wrong password");
-      }
+      createArticleMutation.mutate({ ...values });
+    },
+    onError: () => {
+      setOpenSnackbar(true);
+      setSnackbarMessage("Error in create article form");
     },
   });
 
@@ -63,18 +70,19 @@ const CreatePosts = () => {
     initialValues: defaultAIValues,
     validationSchema: validationsAISchema,
     onSubmit: async (values) => {
-      if (formik.values.password === "123456") {
-        generateAiTextMutation.mutate({ ...values });
-      } else {
-        alert("Wrong password");
-      }
+      generateAiTextMutation.mutate({ ...values });
+      setOpenSnackbar(true);
+      setSnackbarMessage("Generating AI Text");
+    },
+    onError: () => {
+      setOpenSnackbar(true);
+      setSnackbarMessage("Error in the AI form");
     },
   });
 
   useEffect(() => {
     formik.setFieldValue("content", content);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [content]);
+  }, [formik, content]);
 
   return (
     <>
@@ -101,7 +109,7 @@ const CreatePosts = () => {
               <MarginedTextField
                 id="language-input"
                 name="language"
-                label="Programming Language"
+                label="Enter a Programming Language"
                 value={aiFormik.values.language}
                 onChange={aiFormik.handleChange}
                 error={
@@ -116,7 +124,7 @@ const CreatePosts = () => {
               <MarginedTextField
                 id="framework-input"
                 name="framework"
-                label="Framework"
+                label="Enter a Framework"
                 value={aiFormik.values.framework}
                 onChange={aiFormik.handleChange}
                 error={
@@ -132,7 +140,7 @@ const CreatePosts = () => {
               <MarginedTextField
                 id="prompt-input"
                 name="prompt"
-                label="Enter your custom prompt"
+                label="Enter your custom prompt. Ex. Mention ..."
                 value={aiFormik.values.prompt}
                 onChange={aiFormik.handleChange}
                 error={
@@ -147,11 +155,13 @@ const CreatePosts = () => {
                 color="primary"
                 type="submit"
                 sx={{ mb: 2 }}
+                disabled={
+                  generateAiTextMutation.isLoading ||
+                  createArticleMutation.isLoading
+                }
               >
                 Activate Post Muse
               </Button>
-              Please note that you have to enter the password at the bottom of
-              the page for now.
             </Grid>
           </form>
         </FormContainer>
@@ -170,7 +180,7 @@ const CreatePosts = () => {
               <MarginedTextField
                 id="title-input"
                 name="title"
-                label="Title"
+                label="Enter Your Title"
                 value={formik.values.title}
                 onChange={formik.handleChange}
                 error={formik.touched.title && Boolean(formik.errors.title)}
@@ -178,11 +188,10 @@ const CreatePosts = () => {
                 fullWidth
                 sx={{ marginBottom: "32px" }}
               />
-
               <MarginedTextField
                 id="content-input"
                 name="content"
-                label="Content"
+                label="Enter Your Content"
                 value={formik.values.content}
                 onChange={formik.handleChange}
                 error={formik.touched.content && Boolean(formik.errors.content)}
@@ -196,28 +205,19 @@ const CreatePosts = () => {
                   whiteSpace: "pre-wrap",
                 }}
               />
-
               <Button variant="contained" color="primary" type="submit">
                 Submit
               </Button>
-
-              <MarginedTextField
-                id="password-input"
-                name="password"
-                label="Password"
-                type="password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.password && Boolean(formik.errors.password)
-                }
-                helperText={formik.touched.password && formik.errors.password}
-                sx={{ mt: 2 }}
-              />
             </Grid>
           )}
         </form>
       </FormContainer>
+      <SnackbarMessage
+        open={openSnackbar}
+        message={snackbarMessage}
+        autoHideDuration={4000}
+        onClose={() => setOpenSnackbar(false)}
+      />
     </>
   );
 };

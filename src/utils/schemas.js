@@ -10,7 +10,6 @@ export const validationsSchema = yup.object({
     .string("Enter your title (required)")
     .min(3, "Content must be at least 3 characters")
     .required("Content is required"),
-  password: yup.string("Enter your password").required("Password is required"),
 });
 
 export const validationsAISchema = yup.object({
