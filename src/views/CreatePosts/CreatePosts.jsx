@@ -109,7 +109,7 @@ const CreatePosts = () => {
               <MarginedTextField
                 id="language-input"
                 name="language"
-                label="Programming Language"
+                label="Enter a Programming Language"
                 value={aiFormik.values.language}
                 onChange={aiFormik.handleChange}
                 error={
@@ -124,7 +124,7 @@ const CreatePosts = () => {
               <MarginedTextField
                 id="framework-input"
                 name="framework"
-                label="Framework"
+                label="Enter A Framework"
                 value={aiFormik.values.framework}
                 onChange={aiFormik.handleChange}
                 error={
@@ -140,7 +140,7 @@ const CreatePosts = () => {
               <MarginedTextField
                 id="prompt-input"
                 name="prompt"
-                label="Enter your custom prompt"
+                label="Enter your custom prompt. Ex. Mention ..."
                 value={aiFormik.values.prompt}
                 onChange={aiFormik.handleChange}
                 error={
@@ -180,7 +180,7 @@ const CreatePosts = () => {
               <MarginedTextField
                 id="title-input"
                 name="title"
-                label="Title"
+                label="Enter Your Title"
                 value={formik.values.title}
                 onChange={formik.handleChange}
                 error={formik.touched.title && Boolean(formik.errors.title)}
@@ -191,7 +191,7 @@ const CreatePosts = () => {
               <MarginedTextField
                 id="content-input"
                 name="content"
-                label="Content"
+                label="Enter Your Content"
                 value={formik.values.content}
                 onChange={formik.handleChange}
                 error={formik.touched.content && Boolean(formik.errors.content)}
