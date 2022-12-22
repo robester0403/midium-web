@@ -14,7 +14,7 @@ export default function SnackbarMessage({
 }) {
   const snackBarContents = onAction ? (
     <Button
-      color="secondary"
+      color="inherit"
       size="small"
       onClick={onAction}
       data-testid="actionbutton"

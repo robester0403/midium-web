@@ -23,13 +23,18 @@ const CreatePosts = () => {
       navigate("/");
     },
     onError: () => {
-      alert("there was an error");
+      setOpenSnackbar(true);
+      setSnackbarMessage({ message: createArticleMutation.error.message });
     },
   });
 
   const generateAiTextMutation = useMutation(generateAiText, {
     onSuccess: (data) => {
       setContent(data);
+    },
+    onError: () => {
+      setOpenSnackbar(true);
+      setSnackbarMessage({ message: generateAiTextMutation.error.message });
     },
   });
 
@@ -57,7 +62,7 @@ const CreatePosts = () => {
     },
     onError: () => {
       setOpenSnackbar(true);
-      setSnackbarMessage("Error Creating Article");
+      setSnackbarMessage("Error in create article form");
     },
   });
 
@@ -71,14 +76,13 @@ const CreatePosts = () => {
     },
     onError: () => {
       setOpenSnackbar(true);
-      setSnackbarMessage("There was an AI Error");
+      setSnackbarMessage("Error in the AI form");
     },
   });
 
   useEffect(() => {
     formik.setFieldValue("content", content);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [content]);
+  }, [formik, content]);
 
   return (
     <>
