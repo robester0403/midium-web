@@ -124,7 +124,7 @@ const CreatePosts = () => {
               <MarginedTextField
                 id="framework-input"
                 name="framework"
-                label="Enter A Framework"
+                label="Enter a Framework"
                 value={aiFormik.values.framework}
                 onChange={aiFormik.handleChange}
                 error={

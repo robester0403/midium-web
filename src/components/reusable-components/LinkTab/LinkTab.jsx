@@ -2,6 +2,7 @@ import { Tab } from "@mui/material";
 import React from "react";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import Proptypes from "prop-types";
 
 const LinkTab = ({ linkurl, external, ...rest }) => {
   const navigate = useNavigate();
@@ -29,3 +30,12 @@ const LinkTab = ({ linkurl, external, ...rest }) => {
 };
 
 export default LinkTab;
+
+LinkTab.propTypes = {
+  linkurl: Proptypes.string.isRequired,
+  external: Proptypes.bool,
+};
+
+LinkTab.defaultProps = {
+  external: false,
+};
