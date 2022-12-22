@@ -23,6 +23,12 @@ function App() {
             <Helmet>
               <title>Midium, the medium clone</title>
               <meta name="Midium" content="Where Medium Meets AI." />
+              <link
+                rel="icon"
+                type="image/png"
+                href="favicon.ico"
+                sizes="16x16"
+              />
             </Helmet>
             <CssBaseline />
             <BrowserRouter>
