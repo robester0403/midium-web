@@ -8,11 +8,13 @@ import { createArticle, generateAiText } from "../../utils/axios";
 import { validationsAISchema, validationsSchema } from "../../utils/schemas";
 import { FormContainer, MarginedTextField } from "./CreatePostsStyle";
 import Loading from "../../components/reusable-components/Loading/Loading";
+import SnackbarMessage from "../../components/reusable-components/SnackbarMessage/SnackbarMessage";
 
 const CreatePosts = () => {
   const [content, setContent] = useState("");
   const [expanded, setExpanded] = useState(true);
-  // unfortunately, using Formik state leads react state to think we are not controlling the inputs
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -60,6 +62,8 @@ const CreatePosts = () => {
     validationSchema: validationsAISchema,
     onSubmit: async (values) => {
       generateAiTextMutation.mutate({ ...values });
+      setOpenSnackbar(true);
+      setSnackbarMessage("Generating AI Text");
     },
   });
 
@@ -196,6 +200,12 @@ const CreatePosts = () => {
           )}
         </form>
       </FormContainer>
+      <SnackbarMessage
+        open={openSnackbar}
+        message={snackbarMessage}
+        autoHideDuration={4000}
+        onClose={() => setOpenSnackbar(false)}
+      />
     </>
   );
 };
