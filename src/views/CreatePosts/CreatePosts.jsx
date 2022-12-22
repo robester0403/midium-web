@@ -55,6 +55,10 @@ const CreatePosts = () => {
     onSubmit: async (values) => {
       createArticleMutation.mutate({ ...values });
     },
+    onError: () => {
+      setOpenSnackbar(true);
+      setSnackbarMessage("Error Creating Article");
+    },
   });
 
   const aiFormik = useFormik({
@@ -64,6 +68,10 @@ const CreatePosts = () => {
       generateAiTextMutation.mutate({ ...values });
       setOpenSnackbar(true);
       setSnackbarMessage("Generating AI Text");
+    },
+    onError: () => {
+      setOpenSnackbar(true);
+      setSnackbarMessage("There was an AI Error");
     },
   });
 
