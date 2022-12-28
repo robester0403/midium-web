@@ -6,9 +6,22 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import PropTypes from "prop-types";
 
-const DialogBox = ({ open, handleClose, handleAgree, question, ...rest }) => {
+interface DialogBoxProps {
+  open: boolean;
+  handleClose: () => void;
+  handleAgree: () => void;
+  question: string;
+  rest?: any[];
+}
+
+const DialogBox = ({
+  open,
+  handleClose,
+  handleAgree,
+  question,
+  ...rest
+}: DialogBoxProps) => {
   return (
     <Dialog open={open} onClose={handleClose} {...rest}>
       <DialogTitle id="dialog-title">
@@ -26,10 +39,3 @@ const DialogBox = ({ open, handleClose, handleAgree, question, ...rest }) => {
 };
 
 export default DialogBox;
-
-DialogBox.propTypes = {
-  open: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  handleAgree: PropTypes.func.isRequired,
-  question: PropTypes.string.isRequired,
-};

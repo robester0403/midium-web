@@ -2,13 +2,26 @@ import { Tab } from "@mui/material";
 import React from "react";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import Proptypes from "prop-types";
 
-const LinkTab = ({ linkurl, external, ...rest }) => {
+interface LinkTabProps {
+  linkurl: string;
+  external?: boolean;
+  rest?: any[];
+}
+
+const defaultProps = {
+  external: false,
+};
+
+const LinkTab = ({
+  linkurl,
+  external,
+  ...rest
+}: LinkTabProps & typeof defaultProps) => {
   const navigate = useNavigate();
 
   const openNewTab = useCallback(
-    (url) => {
+    (url: string) => {
       const newWindow = window.open(url, "_blank", "noopener,noreferrer");
       if (newWindow) {
         newWindow.opener = null;
@@ -30,12 +43,3 @@ const LinkTab = ({ linkurl, external, ...rest }) => {
 };
 
 export default LinkTab;
-
-LinkTab.propTypes = {
-  linkurl: Proptypes.string.isRequired,
-  external: Proptypes.bool,
-};
-
-LinkTab.defaultProps = {
-  external: false,
-};
