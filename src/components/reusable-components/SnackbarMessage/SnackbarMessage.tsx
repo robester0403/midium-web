@@ -1,7 +1,23 @@
 import { Close as CloseIcon } from "@mui/icons-material";
 import { Button, IconButton, Slide, Snackbar } from "@mui/material";
-import PropTypes from "prop-types";
 import React from "react";
+
+interface SnackbarMessageProps {
+  message: string;
+  open: boolean;
+  onClose?: () => void;
+  onAction?: () => void;
+  actionLabel?: string;
+  rest?: {
+    [key: string]: any;
+  };
+}
+
+const defaultProps = {
+  actionLabel: "Run",
+  onAction: undefined,
+  onClose: undefined,
+};
 
 export default function SnackbarMessage({
   message,
@@ -10,8 +26,8 @@ export default function SnackbarMessage({
   onClose,
   onAction,
   actionLabel,
-  ...props
-}) {
+  ...rest
+}: SnackbarMessageProps & typeof defaultProps) {
   const snackBarContents = onAction ? (
     <Button
       color="inherit"
@@ -53,21 +69,7 @@ export default function SnackbarMessage({
         width: "100%",
         maxWidth: "200px",
       }}
-      {...props}
+      {...rest}
     />
   );
 }
-
-SnackbarMessage.defaultProps = {
-  actionLabel: "Run",
-  onAction: undefined,
-  onClose: undefined,
-};
-
-SnackbarMessage.propTypes = {
-  message: PropTypes.string.isRequired,
-  open: PropTypes.bool.isRequired,
-  onAction: PropTypes.func,
-  onClose: PropTypes.func,
-  actionLabel: PropTypes.string,
-};
