@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 interface LinkTabProps {
   linkurl: string;
   external?: boolean;
-  rest?: any[];
+  rest?: any | undefined;
 }
 
 const defaultProps = {
