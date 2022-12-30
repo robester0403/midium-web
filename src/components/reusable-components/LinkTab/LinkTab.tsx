@@ -3,21 +3,16 @@ import React from "react";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
-interface LinkTabProps {
-  linkurl: string;
+type IProps = {
+  linkUrl: string;
   external?: boolean;
-  rest?: any | undefined;
-}
-
-const defaultProps = {
-  external: false,
 };
 
-const LinkTab = ({
-  linkurl,
-  external,
-  ...rest
-}: LinkTabProps & typeof defaultProps) => {
+type LinkTabProps = React.ComponentProps<typeof Tab> & IProps;
+
+const LinkTab = (props: LinkTabProps) => {
+  const { linkUrl, external = false, ...rest } = props;
+  console.log(external);
   const navigate = useNavigate();
 
   const openNewTab = useCallback(
@@ -34,7 +29,7 @@ const LinkTab = ({
   return (
     <Tab
       onClick={() => {
-        external ? openNewTab(`${linkurl}`) : navigate(`/${linkurl}`);
+        external ? openNewTab(`${linkUrl}`) : navigate(`/${linkUrl}`);
       }}
       sx={{ textTransform: "none" }}
       {...rest}

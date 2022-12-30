@@ -2,20 +2,19 @@ import React from "react";
 import { CircularProgress } from "@mui/material";
 import { CenteredContainer, LoadingTypography } from "./LoadingStyle";
 
-interface LoadingProps {
+interface IProps {
   isCentered: boolean;
   message: string;
   small: boolean;
+  rest?: {
+    [key: string]: any;
+  };
 }
 
-const defaultProps = {
-  isCentered: false,
-  small: false,
-  message: null,
-};
+type LoadingProps = React.ComponentProps<typeof CircularProgress> & IProps;
 
-const Loading = (props: LoadingProps & typeof defaultProps) => {
-  const { isCentered, message, small } = props;
+const Loading = (props: LoadingProps) => {
+  const { isCentered = false, message = null, small = false, ...rest } = props;
 
   const loadingIcon = (
     <LoadingTypography
@@ -29,6 +28,7 @@ const Loading = (props: LoadingProps & typeof defaultProps) => {
         data-testid="loading-icon"
         thickness={small ? 4 : 5}
         size={small ? 12 : 40}
+        {...rest}
       />
       {message}
     </LoadingTypography>

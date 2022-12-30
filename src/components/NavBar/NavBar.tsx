@@ -10,7 +10,10 @@ const NavBar = () => {
   const [tabValue, setTabValue] = useState(1);
   const navigate = useNavigate();
 
-  const handleTabHighlight = (_, newValue) => {
+  const handleTabHighlight = (
+    _: any,
+    newValue: React.SetStateAction<number>
+  ) => {
     setTabValue(newValue);
   };
 
@@ -31,11 +34,11 @@ const NavBar = () => {
             navigate("createposts");
           }}
         />
-        <LinkTab label="Your Articles" linkurl="" />
-        <LinkTab label="What is Midium" linkurl="aboutapp" />
+        <LinkTab linkUrl="" label="Your Articles" />
+        <LinkTab label="What is Midium" linkUrl="aboutapp" />
         <LinkTab
           label="About The Author"
-          linkurl="https://www.robertkso.com/"
+          linkUrl="https://www.robertkso.com/"
           external
         />
       </Tabs>
