@@ -10,14 +10,30 @@ import {
 import ClearIcon from "@mui/icons-material/Clear";
 import { deleteArticle } from "../../utils/axios";
 
-const ArticleCard = ({ id, title, author, content, allArticlesQuery }) => {
+type ArticleCardProps = {
+  id: number;
+  title: string;
+  author: string;
+  content: string;
+  allArticlesQuery: {
+    refetch: () => Promise<any>;
+  };
+};
+
+const ArticleCard = ({
+  id,
+  title,
+  author,
+  content,
+  allArticlesQuery,
+}: ArticleCardProps) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate(`/${id}`);
   };
 
-  const handleDelete = async (e) => {
+  const handleDelete = async (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     await deleteArticle(id);
     await allArticlesQuery.refetch();
@@ -27,7 +43,7 @@ const ArticleCard = ({ id, title, author, content, allArticlesQuery }) => {
     content.length > 100 ? content.substring(0, 147) + "..." : content + "...";
 
   return (
-    <CardContainer onClick={handleClick} cursor="pointer">
+    <CardContainer onClick={handleClick}>
       <CardTopContainer>
         <Typography variant="h5">
           <TitleWrapper>
